@@ -4,8 +4,11 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import 'reset-css';
+import BaiduMap from 'vue-baidu-map'
 Vue.config.productionTip = false
-
+Vue.use(BaiduMap, {
+  ak: '0N3t2TLgyDczHOSqKsdfNPRpF0VCX12R'
+})
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

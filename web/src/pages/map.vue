@@ -1,10 +1,12 @@
 <template>
   <div class="map-container">
-    <div id="container">
-      <div id="l-map"></div>
-      <div id="r-result"></div>
-    </div>
-
+    <baidu-map class="map" :center="center" :zoom="zoom" :scroll-wheel-zoom="true">
+      <template v-for="(item,index) in markerList">
+        <bm-marker v-if="item&&item.lat" :key="index" @click="markerHandle(item,index)" :position="item" :dragging="true" animation="BMAP_ANIMATION_BOUNCE">
+        </bm-marker>
+      </template>
+      <bm-local-search v-if="!!keyword.length" :keyword="keyword" :auto-viewport="true" :location="location" @searchcomplete="searchcomplete"></bm-local-search>
+    </baidu-map>
   </div>
 </template>
 
@@ -13,20 +15,41 @@ import list from "@/assets/js/list.js";
 export default {
   data() {
     return {
-      msg: "6661",
-      list
+      keyword: [],
+      location: "北京",
+      list,
+      center: { lng: 116.404, lat: 39.915 },
+      zoom: 13,
+      markerList: []
     };
   },
+  created() {},
   mounted() {
-    // 百度地图API功能
-    var map = new BMap.Map("l-map"); // 创建Map实例
-    map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);
-    var myKeys = ["酒店", "加油站"];
-    var local = new BMap.LocalSearch(map, {
-      renderOptions: { map: map, panel: "r-result" },
-      pageCapacity: 5
+    this.$nextTick(_ => {
+      let arr = [];
+      for (let i = 0; i < list.length; i++) {
+        arr[i] = list[i].location || {};
+      }
+      this.markerList = arr;
     });
-    local.searchInBounds(myKeys, map.getBounds());
+  },
+  methods: {
+    markerHandle(marker,index){
+      console.log(marker);
+
+      this.keyword=this.list[index].branch_name
+    },
+    searchcomplete(LocalResult) {
+      console.log(LocalResult);
+    }
   }
 };
 </script>
+
+<style lang="less" scoped>
+.map {
+  width: 100vw;
+  height: 100vh;
+}
+</style>
+

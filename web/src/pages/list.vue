@@ -1,7 +1,7 @@
 <template>
   <div class="list-containser">
     <ul>
-      <li v-for="item in list" :key="item.activity_id">
+      <li v-for="item in list" :key="item.activity_id" :class="[item.is_sold?'is_sold':'']">
         <div class="left">
           <img :src="item.item_pic" alt="">
         </div>
@@ -13,6 +13,7 @@
           <p>始价：￥{{item.start_price/100}}</p>
           <p>底价：￥{{item.floor_price/100}}</p>
           <p>现价：￥{{item.current_price/100}}</p>
+          <!-- <span>{{item.is_sold?'抢光':''}}</span> -->
           <!-- <p>{{item.bargain_range}}</p>
           <p>{{item.bargain_count}}</p> -->
           <!-- <p>距离：{{item.distance/1000}}km</p> -->
@@ -41,6 +42,7 @@ ul {
   li {
     padding: 10px;
     display: flex;
+    margin-bottom: 10px;
     img {
       width: 100px;
     }
@@ -52,6 +54,9 @@ ul {
       flex: 1;
     }
   }
+}
+li.is_sold {
+    background: #eaeaea;
 }
 </style>
 
