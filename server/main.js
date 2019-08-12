@@ -49,7 +49,11 @@ async function getDetail(activityId) {
 async function getList(pageIndex = 1) {
     console.log(`>>>getList`);
     console.log(pageIndex);
-    let listUrl = `https://open.mishifeng.com/open/activity/list?category_id=0&lat=40.01234890407986&lng=116.5002937825521&page_limit=20&page_num=${pageIndex}&zone_id=10`;
+    let zone = {
+        '北京': 10,
+        '南京': 3201
+    }
+    let listUrl = `https://open.mishifeng.com/open/activity/list?category_id=0&lat=40.01234890407986&lng=116.5002937825521&page_limit=20&page_num=${pageIndex}&zone_id=${zone['南京']}`;
     console.log(listUrl);
     let result = await axios.get(listUrl);
 
