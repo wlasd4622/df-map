@@ -34,7 +34,7 @@ export default {
       keyword: "",
       location: "北京",
       list,
-      center: { lng: 116.404, lat: 39.915 },
+      center: list[0].location,
       zoom: 13,
       markerList: []
     };
