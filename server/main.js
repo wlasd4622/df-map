@@ -28,8 +28,9 @@ function sleep(ms = 300) {
 }
 
 async function getDetail(activityId) {
-    console.log();
+    console.log(`>>>getDetail`);
     let url = `https://open.mishifeng.com/open/activity/detail?activity_id=${activityId}`
+    console.log(url);
     return new Promise((resolve, reject) => {
         axios.get(url).then(res => {
             if (res.status === 200 && res.data.errmsg === 'success') {
@@ -53,7 +54,7 @@ async function getList(pageIndex = 1) {
         '北京': 10,
         '南京': 3201
     }
-    let listUrl = `https://open.mishifeng.com/open/activity/list?category_id=0&lat=40.01234890407986&lng=116.5002937825521&page_limit=20&page_num=${pageIndex}&zone_id=${zone['南京']}`;
+    let listUrl = `https://open.mishifeng.com/open/activity/list?category_id=0&lat=40.01234890407986&lng=116.5002937825521&page_limit=20&page_num=${pageIndex}&zone_id=${zone['北京']}`;
     console.log(listUrl);
     let result = await axios.get(listUrl);
 
